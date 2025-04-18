@@ -1,9 +1,6 @@
 ---
-import HomeIcon from "@/components/icons/homeIcon.astro";
-import WorkIcon from "@/components/icons/workIcon.astro";
-import ProgrammingIcon from "@/components/icons/programmingIcon.astro";
-import BlogIcon from "@/components/icons/blogIcon.astro";
-import HeaderItem from "./headerItem.astro";
+import HeaderItem from "@/components/headerItem.astro";
+import { pages_link } from "@/db/links";
 
 interface Props {
     className?: string;
@@ -12,13 +9,6 @@ interface Props {
 const place = Astro.url.pathname;
 
 const { className } = Astro.props;
-
-const options = [
-    { title: "Home", icon: HomeIcon, path: "/" },
-    { title: "Projects", icon: ProgrammingIcon, path: "/projects" },
-    { title: "Works", icon: WorkIcon, path: "/works" },
-    { title: "Blog", icon: BlogIcon, path: "/blog" },
-];
 ---
 
 <header
@@ -31,7 +21,7 @@ const options = [
         class="flex gap-x-4 px-3 py-1 items-center border-2 border-zinc-600 rounded-2xl"
     >
         {
-            options
+            pages_link
                 .slice(0, 2)
                 .map(({ title, icon: Icon, path }) => (
                     <HeaderItem
@@ -44,7 +34,7 @@ const options = [
         }
         <h2 class="text-xl font-bold cursor-default">DevLinkHub</h2>
         {
-            options
+            pages_link
                 .slice(2, 4)
                 .map(({ title, icon: Icon, path }) => (
                     <HeaderItem
