@@ -1,0 +1,92 @@
+---
+import HomeIcon from "@/components/icons/homeIcon.astro";
+import WorkIcon from "@/components/icons/workIcon.astro";
+import ProgrammingIcon from "@/components/icons/programmingIcon.astro";
+import BlogIcon from "@/components/icons/blogIcon.astro";
+
+interface Props {
+    className?: string;
+}
+
+const place = Astro.url.pathname;
+
+const { className } = Astro.props;
+
+const options = [
+    { icon: HomeIcon, path: "/" },
+    { icon: ProgrammingIcon, path: "/projects" },
+    { icon: WorkIcon, path: "/experiences" },
+    { icon: BlogIcon, path: "/blog" },
+];
+---
+
+<header
+    class:list={[
+        "flex fixed w-svw items-center justify-center pt-3 z-[999]",
+        className,
+    ]}
+>
+    <nav
+        class="flex gap-x-4 px-3 py-1 items-center border-2 border-zinc-600 rounded-2xl"
+    >
+        {
+            options.slice(0, 2).map(({ icon: Icon, path }) => (
+                <aside>
+                    <a
+                        class:list={[
+                            "transition duration-300 ease-in-out",
+                            place === path
+                                ? "text-blue-300 cursor-not-allowed"
+                                : "hover:text-yellow-300",
+                        ]}
+                        href={place === path ? null : path}
+                    >
+                        <Icon />
+                    </a>
+                </aside>
+            ))
+        }
+        <h2 class="text-xl font-extrabold cursor-default">
+            Programming Resources Searcher
+        </h2>
+        {
+            options.slice(2, 4).map(({ icon: Icon, path }) => (
+                <aside>
+                    <a
+                        class:list={[
+                            "transition duration-300 ease-in-out",
+                            place === path
+                                ? "text-blue-300 cursor-not-allowed"
+                                : "hover:text-yellow-300",
+                        ]}
+                        href={place === path ? null : path}
+                    >
+                        <Icon />
+                    </a>
+                </aside>
+            ))
+        }
+    </nav>
+</header>
+<div class="pb-24"></div>
+
+<script>
+    const styles = ["!bg-black/30", "!border-slate-700", "!backdrop-blur-sm"];
+
+    const stylesToggle = (callback: Function) => {
+        styles.forEach(async (style) => await callback(style));
+    };
+
+    document.addEventListener("astro:page-load", () => {
+        const nav = document.querySelector("nav");
+        if (!nav) return;
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 0) {
+                stylesToggle((style: string) => nav?.classList.add(style));
+            } else {
+                stylesToggle((style: string) => nav?.classList.remove(style));
+            }
+        });
+    });
+</script>
