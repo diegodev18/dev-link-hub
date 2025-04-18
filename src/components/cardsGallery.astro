@@ -1,0 +1,17 @@
+---
+import SectionContainer from "@/components/sectionContainer.astro";
+import { getCollection } from "astro:content";
+
+interface Props {
+    category: string;
+}
+const { category } = Astro.props;
+
+if (category !== "blogs" && category !== "projects" && category !== "works") {
+  return Astro.redirect("/404");
+}
+const articles = await getCollection(category);
+---
+<SectionContainer>
+    
+</SectionContainer>
