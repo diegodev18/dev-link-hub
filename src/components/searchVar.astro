@@ -20,11 +20,12 @@ console.log(this_category);
             class="w-full h-full outline-none"
             placeholder="Buscar..."
             type="text"
+            id="search-var"
         />
         <SearchIcon class="opacity-50" />
     </div>
     <div
-        class="grid grid-cols-[auto_1fr_auto] items-center gap-x-2 w-full max-w-[600px]"
+        class="grid grid-cols-[auto_1fr_auto] min-h-[32px] items-center gap-x-2 w-full max-w-[600px]"
     >
         <ArrowButtonItem id="left-arrow">
             <CircleArrowLeft fill="#e4e4e7" />
@@ -59,6 +60,7 @@ console.log(this_category);
         const leftArrow = document.querySelector("#left-arrow");
         const rightArrow = document.querySelector("#right-arrow");
         const categoriesVar = document.querySelector("#categories-var");
+        const searchVar = document.querySelector("#search-var");
 
         const scrollRange = 300;
 
@@ -72,5 +74,17 @@ console.log(this_category);
 
         leftArrow?.addEventListener("click", leftArrowClick);
         rightArrow?.addEventListener("click", rightArrowClick);
+
+        searchVar?.addEventListener("input", (event) => {
+            const value = event.target?.value;
+            if (!categoriesVar?.children) return;
+            for (const child of categoriesVar?.children) {
+                if (child.textContent && child.textContent.includes(value)) {
+                    child.classList.remove("hidden");
+                } else {
+                    child.classList.add("hidden");
+                }
+            }
+        });
     });
 </script>
