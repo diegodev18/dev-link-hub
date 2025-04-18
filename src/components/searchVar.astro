@@ -9,7 +9,6 @@ const { pathname } = Astro.url;
 const this_category = Object.entries(categories).find(([category, value]) =>
     pathname.includes(category),
 )?.[1] ?? ["all"];
-console.log(this_category);
 ---
 
 <div class="flex flex-col gap-y-2 items-center">
