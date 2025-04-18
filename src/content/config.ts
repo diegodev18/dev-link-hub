@@ -7,7 +7,11 @@ const projects = defineCollection({
     tags: z.array(z.string()),
     image: z.string().optional(),
     url: z.string().optional(),
-    creator:
+    creator: z.object({
+      youtube: z.string().optional(),
+      x: z.string().optional(),
+      website: z.string().optional(),
+    }),
   }),
 });
 
