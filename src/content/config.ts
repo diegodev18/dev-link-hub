@@ -3,22 +3,26 @@ import { defineCollection, z } from "astro:content";
 const projects = defineCollection({
   schema: z.object({
     title: z.string(),
-    description: z.string(),
     date: z.date(),
     tags: z.array(z.string()),
     image: z.string().optional(),
     url: z.string().optional(),
+    creator:
   }),
 });
 
 const works = defineCollection({
   schema: z.object({
     title: z.string(),
-    description: z.string(),
     date: z.date(),
     tags: z.array(z.string()),
     image: z.string().optional(),
     url: z.string().optional(),
+    creator: z.object({
+      youtube: z.string().optional(),
+      x: z.string().optional(),
+      website: z.string().optional(),
+    }),
   }),
 });
 
