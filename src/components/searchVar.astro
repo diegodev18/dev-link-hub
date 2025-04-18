@@ -1,8 +1,18 @@
 ---
-import SearchIcon from "./icons/searchIcon.astro";
+import SearchIcon from "@/components/icons/searchIcon.astro";
+import CircleArrowLeft from "@/components/icons/circleArrowLeft.astro";
+import CircleArrowRight from "@/components/icons/circleArrowRight.astro";
+import ArrowButtonItem from "@/components/arrowButtonItem.astro";
+import categories from "@/db/categories";
+
+const { pathname } = Astro.url;
+const this_category = Object.entries(categories).find(([category, value]) =>
+    pathname.includes(category),
+)?.[1] ?? ["all"];
+console.log(this_category);
 ---
 
-<div class="flex justify-center">
+<div class="flex flex-col gap-y-2 items-center">
     <div
         class="grid grid-cols-[1fr_auto] gap-x-2 items-center border border-zinc-600 rounded-xl w-full max-w-[600px] h-10 px-3"
     >
@@ -13,4 +23,54 @@ import SearchIcon from "./icons/searchIcon.astro";
         />
         <SearchIcon />
     </div>
+    <div
+        class="grid grid-cols-[auto_1fr_auto] items-center gap-x-2 w-full max-w-[600px]"
+    >
+        <ArrowButtonItem id="left-arrow">
+            <CircleArrowLeft fill="#e4e4e7" />
+        </ArrowButtonItem>
+        <div
+            class="flex gap-x-2 rounded-md overflow-x-scroll"
+            id="categories-var"
+        >
+            {
+                this_category.map((cat) => (
+                    <button class="text-nowrap px-2 py-1 rounded-md bg-zinc-800 text-zinc-200 cursor-pointer">
+                        {cat}
+                    </button>
+                ))
+            }
+        </div>
+        <ArrowButtonItem id="right-arrow">
+            <CircleArrowRight fill="#e4e4e7" />
+        </ArrowButtonItem>
+    </div>
 </div>
+
+<style>
+    #categories-var {
+        scrollbar-width: none;
+        scroll-behavior: smooth;
+    }
+</style>
+
+<script>
+    document.addEventListener("astro:page-load", () => {
+        const leftArrow = document.querySelector("#left-arrow");
+        const rightArrow = document.querySelector("#right-arrow");
+        const categoriesVar = document.querySelector("#categories-var");
+
+        const scrollRange = 300;
+
+        const leftArrowClick = () => {
+            if (categoriesVar) categoriesVar.scrollLeft -= scrollRange;
+        };
+
+        const rightArrowClick = () => {
+            if (categoriesVar) categoriesVar.scrollLeft += scrollRange;
+        };
+
+        leftArrow?.addEventListener("click", leftArrowClick);
+        rightArrow?.addEventListener("click", rightArrowClick);
+    });
+</script>
