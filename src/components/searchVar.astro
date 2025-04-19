@@ -21,7 +21,12 @@ const this_category = Object.entries(categories).find(([category, value]) =>
             type="text"
             id="search-var"
         />
-        <SearchIcon class="opacity-50" />
+        <button
+            class="opacity-50 hover:opacity-100 cursor-pointer transition"
+            id="search-button"
+        >
+            <SearchIcon />
+        </button>
     </div>
     <div
         class="grid grid-cols-[auto_1fr_auto] min-h-[32px] items-center gap-x-2 w-full max-w-[600px]"
@@ -35,9 +40,12 @@ const this_category = Object.entries(categories).find(([category, value]) =>
         >
             {
                 this_category.map((cat) => (
-                    <button class="text-nowrap px-2 py-1 rounded-md bg-zinc-800 text-zinc-200 cursor-pointer">
+                    <a
+                        href={`projects?category=${cat.replaceAll(" ", "_")}`}
+                        class="text-nowrap px-2 py-1 rounded-md bg-zinc-800 text-zinc-200 cursor-pointer"
+                    >
                         {cat}
-                    </button>
+                    </a>
                 ))
             }
         </div>
@@ -60,6 +68,7 @@ const this_category = Object.entries(categories).find(([category, value]) =>
         const rightArrow = document.querySelector("#right-arrow");
         const categoriesVar = document.querySelector("#categories-var");
         const searchVar = document.querySelector("#search-var");
+        const searchButton = document.querySelector("#search-button");
 
         const scrollRange = 300;
 
@@ -84,6 +93,11 @@ const this_category = Object.entries(categories).find(([category, value]) =>
                     child.classList.add("hidden");
                 }
             }
+        });
+
+        searchButton?.addEventListener("click", () => {
+            const value = searchVar?.value;
+            window.location.href = `${window.location.pathname}?category=${encodeURIComponent(value)}`;
         });
     });
 </script>
