@@ -41,7 +41,7 @@ const this_category = Object.entries(categories).find(([category, value]) =>
             {
                 this_category.map((cat) => (
                     <a
-                        href={`projects?category=${cat.replaceAll(" ", "_")}`}
+                        href={`${Astro.originPathname}?category=${cat.replaceAll(" ", "_")}`}
                         class="text-nowrap px-2 py-1 rounded-md bg-zinc-800 hover:bg-zinc-900 text-zinc-200 cursor-pointer transition"
                     >
                         {cat.toUpperCase()}
