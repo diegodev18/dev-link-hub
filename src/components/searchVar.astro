@@ -80,11 +80,19 @@ const this_category = Object.entries(categories).find(([category, value]) =>
             if (categoriesVar) categoriesVar.scrollLeft += scrollRange;
         };
 
+        const search = () => {
+            const value = (searchVar?.value).replace(/\s+/g, "_");
+            window.location.href = `${window.location.pathname}?category=${encodeURIComponent(value)}`;
+        };
+
         leftArrow?.addEventListener("click", leftArrowClick);
         rightArrow?.addEventListener("click", rightArrowClick);
 
-        searchVar?.addEventListener("input", (event) => {
+        searchVar?.addEventListener("keydown", (event) => {
             const value = event.target?.value;
+            if (event.key === "Enter") {
+                search();
+            }
             if (!categoriesVar?.children) return;
             for (const child of categoriesVar?.children) {
                 if (child.textContent && child.textContent.includes(value)) {
@@ -95,9 +103,6 @@ const this_category = Object.entries(categories).find(([category, value]) =>
             }
         });
 
-        searchButton?.addEventListener("click", () => {
-            const value = searchVar?.value;
-            window.location.href = `${window.location.pathname}?category=${encodeURIComponent(value)}`;
-        });
+        searchButton?.addEventListener("click", search);
     });
 </script>
