@@ -95,7 +95,8 @@ const this_category = Object.entries(categories).find(([category, value]) =>
             }
             if (!categoriesVar?.children) return;
             for (const child of categoriesVar?.children) {
-                if (child.textContent && child.textContent.includes(value)) {
+                const textContent = child.textContent?.toLowerCase();
+                if (textContent && textContent.includes(value.toLowerCase())) {
                     child.classList.remove("hidden");
                 } else {
                     child.classList.add("hidden");
