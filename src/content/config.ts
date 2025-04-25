@@ -34,6 +34,11 @@ const blogs = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.date(),
+    creator: z.object({
+      youtube: z.string().optional(),
+      x: z.string().optional(),
+      website: z.string().optional(),
+    }),
   }),
 });
 
