@@ -1,17 +1,63 @@
 ---
 import SectionContainer from "@/components/sectionContainer.astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
+import CardItem from "@/components/cardItem.astro";
 
 interface Props {
-    category: string;
+    category: "blogs" | "projects" | "works";
 }
 const { category } = Astro.props;
 
-if (category !== "blogs" && category !== "projects" && category !== "works") {
-  return Astro.redirect("/404");
-}
 const articles = await getCollection(category);
 ---
+
 <SectionContainer>
-    
+    <main class="flex flex-wrap">
+        {
+            category === "blogs"
+                ? articles.map(async (article) => {
+                      const {
+                          data: {
+                              title,
+                              date,
+                              creator: { youtube, x, website },
+                          },
+                      } = article;
+                      const { Content } = await render(article);
+                      return (
+                          <CardItem
+                              title={title}
+                              date={date}
+                              creator={{ youtube, x, website }}
+                              content={Content}
+                          />
+                      );
+                  })
+                : (category === "projects" || category === "works") &&
+                  articles.map(async (article) => {
+                      const {
+                          data: {
+                              title,
+                              date,
+                              tags,
+                              image,
+                              url,
+                              creator: { youtube, x, website },
+                          },
+                      } = article;
+                      const { Content } = await render(article);
+                      return (
+                          <CardItem
+                              title={title}
+                              date={date}
+                              tags={tags}
+                              image={image}
+                              url={url}
+                              creator={{ youtube, x, website }}
+                              content={Content}
+                          />
+                      );
+                  })
+        }
+    </main>
 </SectionContainer>

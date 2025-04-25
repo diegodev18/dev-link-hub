@@ -1,0 +1,75 @@
+---
+import LinkIcon from "@/components/icons/linkIcon.astro";
+
+interface Props {
+    title: string;
+    date: Date;
+    tags?: string[];
+    image?: string;
+    url?: string;
+    creator: {
+        youtube?: string;
+        x?: string;
+        website?: string;
+    };
+    content?: any;
+}
+const {
+    title,
+    date,
+    tags,
+    image,
+    url,
+    creator: { youtube, x, website },
+    content: Content,
+} = Astro.props;
+---
+
+<a
+    href={url}
+    title={title}
+    target="_blank"
+    class="group cursor-pointer hover:-rotate-1 relative w-[400px] px-3 py-2 rounded-2xl overflow-hidden transition"
+>
+    <div
+        class="absolute flex gap-x-1 right-3 bottom-1 text-yellow-400 font-semibold z-50 opacity-0 group-hover:opacity-100 transition"
+    >
+        Click para más información!
+        <LinkIcon />
+    </div>
+    <div class="z-20 pb-5">
+        {
+            tags && (
+                <p class="line-clamp-2 text-sm font-medium text-zinc-700">
+                    <span class="font-semibold">Tags:</span>
+                    {tags.join(", ")}.
+                </p>
+            )
+        }
+        <h1 class="text-2xl text-yellow-300 leading-7 font-semibold pt-2">
+            {title}
+        </h1>
+        <p
+            class="flex gap-x-5 flex-wrap text-[12px] text-zinc-500 font-bold pb-1"
+        >
+            <span>{`Created by ${youtube || x || website}`}</span>
+            <span>{date.toLocaleDateString()}</span>
+        </p>
+        <span class="font-medium leading-5 overflow-y-scroll">
+            <Content />
+        </span>
+    </div>
+    {
+        image && (
+            <img
+                src={image}
+                alt=""
+                class="absolute inset-0 scale-105 group-hover:scale-110 size-full object-cover object-center -z-50 transition"
+            />
+        )
+    }
+    <div
+        class="absolute inset-0 scale-105 size-full object-cover object-center -z-10 opacity-70 bg-black"
+    >
+    </div>
+</a>
