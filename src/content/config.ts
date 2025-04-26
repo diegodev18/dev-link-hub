@@ -5,7 +5,7 @@ const projects = defineCollection({
     title: z.string(),
     date: z.date(),
     tags: z.array(z.string()),
-    image: z.string().optional(),
+    img: z.string().optional(),
     url: z.string().optional(),
     creator: z.object({
       youtube: z.string().optional(),
@@ -20,7 +20,7 @@ const works = defineCollection({
     title: z.string(),
     date: z.date(),
     tags: z.array(z.string()),
-    image: z.string().optional(),
+    img: z.string().optional(),
     url: z.string().optional(),
     creator: z.object({
       youtube: z.string().optional(),
