@@ -12,10 +12,10 @@ const articles = await getCollection(category);
 ---
 
 <SectionContainer>
-    <main class="flex flex-wrap">
+    <main class="grid grid-cols-[repeat(auto-fill,_minmax(350px,1fr))] gap-2">
         {
             category === "blogs"
-                ? articles.map(async (article) => {
+                ? articles.map(async (article, index) => {
                       const {
                           data: {
                               title,
@@ -30,17 +30,18 @@ const articles = await getCollection(category);
                               date={date}
                               creator={{ youtube, x, website }}
                               content={Content}
+                              index={index}
                           />
                       );
                   })
                 : (category === "projects" || category === "works") &&
-                  articles.map(async (article) => {
+                  articles.map(async (article, index) => {
                       const {
                           data: {
                               title,
                               date,
                               tags,
-                              image,
+                              img,
                               url,
                               creator: { youtube, x, website },
                           },
@@ -51,10 +52,11 @@ const articles = await getCollection(category);
                               title={title}
                               date={date}
                               tags={tags}
-                              image={image}
+                              image={img}
                               url={url}
                               creator={{ youtube, x, website }}
                               content={Content}
+                              index={index}
                           />
                       );
                   })
