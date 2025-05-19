@@ -4,7 +4,7 @@ import { getCollection, render } from "astro:content";
 import CardItem from "@/components/cardItem.astro";
 
 interface Props {
-    category: "blogs" | "projects" | "works";
+    category: "blogs" | "programming" | "works";
 }
 const { category } = Astro.props;
 
@@ -34,7 +34,7 @@ const articles = await getCollection(category);
                           />
                       );
                   })
-                : (category === "projects" || category === "works") &&
+                : (category === "programming" || category === "works") &&
                   articles.map(async (article, index) => {
                       const {
                           data: {

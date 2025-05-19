@@ -26,9 +26,11 @@ const { title } = Astro.props;
         />
         <ClientRouter />
     </head>
-    <body class="bg-[#2A2D34] text-white min-h-screen">
+    <body
+        class="grid grid-rows-[auto_1fr_auto] bg-[#2A2D34] text-white min-h-screen"
+    >
         <Header />
-        <slot />
+        <div><slot /></div>
         <Footer />
     </body>
 </html>

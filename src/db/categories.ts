@@ -1,5 +1,5 @@
 export default {
-  projects: [
+  programming: [
     "javascript",
     "codigo limpio",
     "typescript",

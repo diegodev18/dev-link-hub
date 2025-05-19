@@ -5,7 +5,7 @@ import BlogIcon from "@/components/icons/blogIcon.astro";
 
 export const pages_link = [
   { title: "Home", icon: HomeIcon, path: "/" },
-  { title: "Projects", icon: ProgrammingIcon, path: "/projects" },
+  { title: "Programming", icon: ProgrammingIcon, path: "/programming" },
   { title: "Works", icon: WorkIcon, path: "/works" },
   { title: "Blog", icon: BlogIcon, path: "/blog" },
 ];
